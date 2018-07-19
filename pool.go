@@ -108,6 +108,7 @@ func (m *Pool) collect(proc ResultProcessorFunc) {
 	}
 	log.DEBUG.Print("goRoutine collect done, setting channel done as completed")
 	m.done <- true
+	m.completed = true
 }
 
 // IsCompleted utility method to check if all work has done from an outside caller.
