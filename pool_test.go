@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hulilabs/fakturo/worker"
+	"github.com/dmora/workerpool"
 	"github.com/stretchr/testify/assert"
-)
+    )
 
 func TestNewPool(t *testing.T) {
-	pool := worker.NewPool(2)
+	pool := workerpool.NewPool(2)
 	assert.False(t, pool.IsCompleted())
 }
 func ResourceProcessor(resource interface{}) error {
@@ -18,7 +18,7 @@ func ResourceProcessor(resource interface{}) error {
 	return nil
 }
 
-func ResultProcessor(result worker.Result) error {
+func ResultProcessor(result workerpool.Result) error {
 	fmt.Printf("Result processor got: %s", result.Err)
 	fmt.Println()
 	return nil
@@ -31,6 +31,6 @@ func TestPool_Start(t *testing.T) {
 		resources[i] = s
 	}
 
-	pool := worker.NewPool(3)
+	pool := workerpool.NewPool(3)
 	pool.Start(resources, ResourceProcessor, ResultProcessor)
 }
